@@ -65,7 +65,6 @@ class Generator:
         If there is no ( and ), its a regular regex string part
         """
         brackets = self.get_outer_brackets(regex_string)
-        print(brackets)
         if len(brackets) > 0:
             quantifier = {}
             # Check if there is a quantifier behind the brackets
@@ -95,22 +94,16 @@ class Generator:
                 self.process_regex_string(regex_string[((brackets[1] + quantifier["Chars"])+1):(len(regex_string))])
         else:
             # There are no brackets, so the whole string can be processed as a regular regex
-            result = str(self.split_regular_regex_on_square_brackets(regex_string))
-            #self.result += str(self.split_regular_regex_on_square_brackets(regex_string))
-            print("self.result updated with: {}".format(result))
-            self.result += result
-            print("self.result became {}".format(self.result))
+            self.result += str(self.split_regular_regex_on_square_brackets(regex_string))
 
 
     def process_regular_regex(self, regex_string):
         """
         This string will process the regular string without groups
         """
-        print("into process_regular_regex: {}".format(regex_string))
         temp_result = ""
         if '|' in regex_string and '[' not in regex_string:
             regex_string = self.process_logical_or(regex_string)
-            print("The or part thats chosen: {}".format(regex_string))
         index = 0
         while index < len(regex_string):
             quantifier = {}
@@ -276,7 +269,6 @@ class Generator:
                 else:
                     collection.append(regex_string[index])
                 index += 1
-        print("collection of possibilities between the brackets: {}".format(collection))
         return collection
 
 
@@ -372,7 +364,6 @@ class Generator:
                     extra_opening_brackets += 1
                 elif regex_string[index] == ')' and regex_string[(index - 1)] != '\\' and extra_opening_brackets > 0:
                     extra_opening_brackets -= 1
-                ##print("amount of extra opening brackets found: {}".format(extra_opening_brackets))
         return brackets
 
 
@@ -472,8 +463,6 @@ class Generator:
 #
 ####
 test = Generator(100)
-# print("The brackets of 'test\(yo(hoh(o)as\))' are:")
-# print(test.get_outer_brackets2('test\(yo(hoh(o)as\))'))
 print("From what regex would you like the string to be generated?")
 input = input()
 result = test.generate(input)

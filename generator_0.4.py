@@ -1,3 +1,4 @@
+import sys
 import random
 import string
 
@@ -462,8 +463,39 @@ class Generator:
 # Second example fails
 #
 ####
+#test = Generator(100)
+#print("From what regex would you like the string to be generated?")
+#input = input()
+#result = test.generate(input)
+#print("The result is: {}".format(result))
+
+
+
+# Check if '--help' argument is provided
+if "-h" in sys.argv or "--help" in sys.argv:
+    print("Usage: " + sys.argv[0] + " ([-h] [-r])\n\r")
+    print("Generates a string from a valid regular expression. Use no arguments for the interactive mode.\n\r")
+    print("Optional arguments:")
+    print("  -h, --help\t\tShow this help message and exit.")
+    print("  -r, --regex\t\tRegex to generate a string and exit.")
+    print("")
+    exit(0)
+
 test = Generator(100)
+
+if "-r" in sys.argv or "--regex" in sys.argv:
+    if len(sys.argv) >= 3:
+        arg = sys.argv[2]
+        #print(sys.argv[1])
+        print(test.generate(arg))
+        exit(0)
+    else:
+        print("Missing regex string")   
+        exit(1)
+
 print("From what regex would you like the string to be generated?")
 input = input()
 result = test.generate(input)
 print("The result is: {}".format(result))
+exit(0)
+
